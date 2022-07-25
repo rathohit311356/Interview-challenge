@@ -1,0 +1,28 @@
+#!/bin/bash
+#Version 1.0 - Script will give meta data in json format or you may chose to get particular meta data to fetch the details from menu
+
+complete_meta_data=$(wget -q -O - http://169.254.169.254/latest/dynamic/instance-identity/document)
+aws_instance=$(wget -q -O- http://169.254.169.254/latest/meta-data/instance-id)
+hostname=$(wget -q -O- http://169.254.169.254/latest/meta-data/hostname)
+ami_id=$(wget -q -O- http://169.254.169.254/latest/meta-data/ami-id)
+public_hostname=$(wget -q -O- http://169.254.169.254/latest/meta-data/public-hostname)
+public_ipv4==$(wget -q -O- http://169.254.169.254/latest/meta-data/public-ipv4)
+
+echo "select the operation ************"
+echo "  1) Get meta data in json output format "
+echo "  2) Get Instance id "
+echo "  3) Get Hostname "
+echo "  4) Get ami id" 
+echo "  5) Get the public hostname"
+echo "  6) Get the public ipv4"
+
+read n
+case $n in
+  1) echo " Find the meta data : $complete_meta_data";;
+  2) echo "Instance Id is : $aws_instance";;
+  3) echo "Hostname is : $hostname ";;
+  4) echo "Ami id is : $ami_id";;
+  5) echo "public hostname is : $public_hostname";;
+  6) echo "public ipv4 is : $public_ipv4" ;;
+  *) echo "invalid option";;
+esac
